@@ -42,7 +42,7 @@ else
 end
 sizeD   = size(oriData3_noise);
 D       = zeros(M*N,p) ;
-mask_mat = reshape(mask,[m*n,p]);
+mask_mat = reshape(mask,[M*N,p]);
 for i=1:p
     bandp = oriData3_noise(:,:,i);
     D(:,i)= bandp(:);
@@ -50,7 +50,7 @@ end
 normD   = norm(D,'fro');
 % initialize
 norm_two = lansvd(D, 1, 'L');
-norm_inf = norm( D(:), inf) / lambda;
+norm_inf = norm( D(:), inf) *0.1;
 dual_norm = max(norm_two, norm_inf);
 
 mu = 1.25/dual_norm;%1.25/norm_two % this one can be tuned

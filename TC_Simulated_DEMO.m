@@ -27,7 +27,7 @@ mask(Omega) = 1;
 Omat = reshape(Oten,[n1*n2,n3]);
 Omemat = find(Omat~=0);
 
-methodName = {'NN', 'TNN', 'ATNN', 'TCTV'};
+methodName = {'NN', 'TNN', 'ATNN', 'CTV','TCTV'};
 
 %% NN_MC
 it = 1;
@@ -53,6 +53,17 @@ OutX = ATNN_TC(Oten, mask, r3);
 run_time(it) = toc;
 X = reshape(OutX,[n1*n2,n3]);
 nmse(it) = norm(X(:)-RLmat(:),'fro')/norm(RLmat(:),'fro');
+
+
+%% CTV_MC
+it = it+1;
+disp(['Running ',methodName{it}, ' ... ']); 
+tic
+OutX = CTV_MC(Oten, mask);
+run_time(it) = toc;
+X = reshape(OutX,[n1*n2,n3]);
+nmse(it) = norm(X(:)-RLmat(:),'fro')/norm(RLmat(:),'fro');
+
 %% TCTV_TC
 it = it+1;
 disp(['Running ',methodName{it}, ' ... ']); 
